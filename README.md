@@ -51,7 +51,7 @@ previously.
 var mssDnCol = msslib.getCol({
   aoi: ee.Geometry.Point([-122.239, 44.018]),
   doyRange: [170, 240],
-  excludeIds: ['LM10480291973203AAA02', 'LM10480301973203AAA02']
+  excludeIds: ['LM10480291974234GDS03', 'LM20490291975185GDS03']
 });
 ```
 
@@ -67,19 +67,18 @@ Add the NDVI transformation as a band to all images in the collection.
 mssToaCol = mssToaCol.map(msslib.addNdvi);
 ```
 
-Apply the MSS clear-view-mask to all images in the collection.
+Apply the MSS clear-view-mask
+([MSScvm](https://jdbcode.github.io/MSScvm/index.html)) to all images in the
+collection to remove clouds and cloud shadows.
 
 ```js
 mssToaCol = mssToaCol.map(msslib.applyMsscvm);
-
 ```
 
 Apply QA band to all images in the collection.
 
-
 ```js
 mssToaCol = mssToaCol.map(msslib.applyQaMask);
-
 ```
 
 ## Components
@@ -167,15 +166,20 @@ A dictionary of false color visualization parameters for MSS DN images.
 **Kind**: global constant  
 **Example**  
 ```js
-// Load example MSS 5 image.
-var img = msslib.exMss5;
+// Get an MSS image.
+var mssDnImg = msslib.getCol({
+  aoi: ee.Geometry.Point([-122.239, 44.018]),
+  yearRange: [1987, 1987],
+  doyRange: [170, 240],
+  wrs: '2'
+}).first();
 
 // Use with Map.addLayer().
-Map.centerObject(img, 8);
-Map.addLayer(img, msslib.visDn, 'From Map.addLayer()');
+Map.centerObject(mssDnImg, 8);
+Map.addLayer(mssDnImg, msslib.visDn, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
-var visImg = img.visualize(msslib.visDn);
+var visImg = mssDnImg.visualize(msslib.visDn);
 Map.addLayer(visImg, null, 'From ee.Image.visualize()');
 ```
 <a name="visRad"></a>
@@ -186,15 +190,23 @@ A dictionary of false color visualization parameters for MSS radiance images.
 **Kind**: global constant  
 **Example**  
 ```js
-// Load example MSS 5 image, convert to radiance.
-var img = msslib.calRad(msslib.exMss5);
+// Get an MSS image.
+var mssDnImg = msslib.getCol({
+  aoi: ee.Geometry.Point([-122.239, 44.018]),
+  yearRange: [1987, 1987],
+  doyRange: [170, 240],
+  wrs: '2'
+}).first();
+
+// Convert DN to radiance.
+var mssRadImg = msslib.calcRad(mssDnImg);
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(img, msslib.visRad, From Map.addLayer());
+Map.addLayer(mssRadImg, msslib.visRad, From Map.addLayer());
 
 // Use with ee.Image.visualize().
-var visImg = img.visualize(msslib.visRad);
+var visImg = mssRadImg.visualize(msslib.visRad);
 Map.addLayer(visImg, null, 'From ee.Image.visualize()');
 ```
 <a name="visToa"></a>
@@ -206,15 +218,23 @@ images.
 **Kind**: global constant  
 **Example**  
 ```js
-// Load example MSS 5 image, convert to TOA.
-var img = msslib.calcToa(msslib.exMss5);
+// Get an MSS image.
+var mssDnImg = msslib.getCol({
+  aoi: ee.Geometry.Point([-122.239, 44.018]),
+  yearRange: [1987, 1987],
+  doyRange: [170, 240],
+  wrs: '2'
+}).first();
+
+// Convert DN to TOA.
+var mssToaImg = msslib.calcToa(mssDnImg);
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(img, msslib.visToa, From Map.addLayer());
+Map.addLayer(mssToaImg, msslib.visToa, From Map.addLayer());
 
 // Use with ee.Image.visualize().
-var visImg = img.visualize(msslib.visToa);
+var visImg = mssToaImg.visualize(msslib.visToa);
 Map.addLayer(visImg, null, 'From ee.Image.visualize()');
 ```
 <a name="visNdvi"></a>
@@ -225,15 +245,23 @@ A dictionary of visualization parameters for MSS NDVI images.
 **Kind**: global constant  
 **Example**  
 ```js
-// Load example MSS 5 image, add NDVI band.
-var img = msslib.addNdvi(msslib.exMss5);
+// Get an MSS image.
+var mssDnImg = msslib.getCol({
+  aoi: ee.Geometry.Point([-122.239, 44.018]),
+  yearRange: [1987, 1987],
+  doyRange: [170, 240],
+  wrs: '2'
+}).first();
+
+// Convert DN to TOA and add NDVI band.
+var mssNdviImg = msslib.addNdvi(msslib.calcToa(mssDnImg));
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(img, msslib.visNdvi, From Map.addLayer());
+Map.addLayer(mssNdviImg, msslib.visNdvi, From Map.addLayer());
 
 // Use with ee.Image.visualize().
-var visImg = img.visualize(msslib.visNdvi);
+var visImg = mssNdviImg.visualize(msslib.visNdvi);
 Map.addLayer(visImg, null, 'From ee.Image.visualize()');
 ```
 <a name="getWrs1GranuleGeom"></a>
