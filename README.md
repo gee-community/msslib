@@ -1,3 +1,5 @@
+# msslib
+
 The aim of `msslib` is to make it easy to work with Landsat MSS data in Earth
 Engine. It assembles image collections across the five satellites that carried
 the MSS sensor, filters images for quality, calculates TOA reflectance, and
