@@ -83,7 +83,7 @@ mssToaCol = mssToaCol.map(msslib.applyQaMask);
 
 ## Components
 
-#### Constants
+### Constants
 
 <dl>
 <dt><a href="#visDn">visDn</a> : <code>Object</code></dt>
@@ -101,7 +101,7 @@ images.</p>
 </dd>
 </dl>
 
-#### Functions
+### Functions
 
 <dl>
 <dt><a href="#getWrs1GranuleGeom">getWrs1GranuleGeom(granuleId)</a> > <code>ee.Dictionary</code></dt>
@@ -202,7 +202,7 @@ var mssDnImg = msslib.getCol({
 var mssRadImg = msslib.calcRad(mssDnImg);
 
 // Use with Map.addLayer().
-Map.centerObject(img, 8);
+Map.centerObject(mssRadImg, 8);
 Map.addLayer(mssRadImg, msslib.visRad, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
@@ -230,7 +230,7 @@ var mssDnImg = msslib.getCol({
 var mssToaImg = msslib.calcToa(mssDnImg);
 
 // Use with Map.addLayer().
-Map.centerObject(img, 8);
+Map.centerObject(mssToaImg, 8);
 Map.addLayer(mssToaImg, msslib.visToa, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
@@ -257,7 +257,7 @@ var mssDnImg = msslib.getCol({
 var mssNdviImg = msslib.addNdvi(msslib.calcToa(mssDnImg));
 
 // Use with Map.addLayer().
-Map.centerObject(img, 8);
+Map.centerObject(mssNdviImg, 8);
 Map.addLayer(mssNdviImg, msslib.visNdvi, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
