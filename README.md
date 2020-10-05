@@ -203,7 +203,7 @@ var mssRadImg = msslib.calcRad(mssDnImg);
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(mssRadImg, msslib.visRad, From Map.addLayer());
+Map.addLayer(mssRadImg, msslib.visRad, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
 var visImg = mssRadImg.visualize(msslib.visRad);
@@ -231,7 +231,7 @@ var mssToaImg = msslib.calcToa(mssDnImg);
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(mssToaImg, msslib.visToa, From Map.addLayer());
+Map.addLayer(mssToaImg, msslib.visToa, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
 var visImg = mssToaImg.visualize(msslib.visToa);
@@ -258,7 +258,7 @@ var mssNdviImg = msslib.addNdvi(msslib.calcToa(mssDnImg));
 
 // Use with Map.addLayer().
 Map.centerObject(img, 8);
-Map.addLayer(mssNdviImg, msslib.visNdvi, From Map.addLayer());
+Map.addLayer(mssNdviImg, msslib.visNdvi, 'From Map.addLayer()');
 
 // Use with ee.Image.visualize().
 var visImg = mssNdviImg.visualize(msslib.visNdvi);
