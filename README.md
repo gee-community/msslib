@@ -105,13 +105,13 @@ images.</p>
 #### Functions
 
 <dl>
-<dt><a href="#getWrs1GranuleGeom">getWrs1GranuleGeom(granuleId)</a> ??? <code>ee.Dictionary</code></dt>
+<dt><a href="#getWrs1GranuleGeom">getWrs1GranuleGeom(granuleId)</a> > <code>ee.Dictionary</code></dt>
 <dd><p>Get the geometry for a given WRS-1 granule. Returns a dictionary with three
 elements: &#39;granule&#39; a <code>ee.Feature</code>, granule &#39;centroid&#39; a <code>ee.Geometry</code>, and
 granule &#39;bounds&#39; <code>ee.Geometry</code> with a 40 km buffer. Note that it will only
 return results for granules that intersect land on the descending path.</p>
 </dd>
-<dt><a href="#getCol">getCol(params)</a> ??? <code>ee.ImageCollection</code></dt>
+<dt><a href="#getCol">getCol(params)</a> > <code>ee.ImageCollection</code></dt>
 <dd><p>Assembles a Landsat MSS image collection from USGS Collection 1 T1 and T2
 images acquired by satellites 1-5. Removes L1G images and images without a
 complete set of reflectance bands. Additional default and optional filtering
@@ -126,20 +126,20 @@ IDs for use in quickly evaluating a collection. The image IDs can be recorded
 and used as entries in the <code>params.excludeIds</code> list of the <code>msslib.getCol()</code>
 function to exclude the given image(s).</p>
 </dd>
-<dt><a href="#calcRad">calcRad(img)</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#calcRad">calcRad(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Converts DN values to radiance.</p>
 </dd>
-<dt><a href="#calcToa">calcToa(img)</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#calcToa">calcToa(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Converts DN values to TOA reflectance.</p>
 </dd>
-<dt><a href="#addNdvi">addNdvi(img)</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#addNdvi">addNdvi(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds NDVI transformation as a band (&#39;ndvi&#39;) to the input image.</p>
 </dd>
-<dt><a href="#addQaMask">addQaMask()</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#addQaMask">addQaMask()</a> > <code>ee.Image</code></dt>
 <dd><p>Adds the &#39;BQA&#39; quality band as mask band (&#39;BQA_mask&#39;) indicating good (1) and
 bad (0) pixels. <a href="https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band">Learn more about the &#39;BQA&#39; band</a>.</p>
 </dd>
-<dt><a href="#applyQaMask">applyQaMask()</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#applyQaMask">applyQaMask()</a> > <code>ee.Image</code></dt>
 <dd><p>Applies the &#39;BQA&#39; quality band to an image as a mask. It masks out cloud
 pixels and those exhibiting radiometric saturation, as well pixels associated
 with missing data. Cloud identification is limited to mostly thick cumulus
@@ -149,11 +149,11 @@ or partial image pixel rows being highly biased toward high values in a
 single band, which when visualized, can appear as tinted red, green, or
 blue. <a href="https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band">Learn more about the &#39;BQA&#39; band</a>.</p>
 </dd>
-<dt><a href="#addMsscvm">addMsscvm(img)</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#addMsscvm">addMsscvm(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds the MSScvm band (&#39;msscvm&#39;) to the input image. Value 0 designates pixels
 as clear, 1 as clouds, and 2 as shadows. <a href="https://jdbcode.github.io/MSScvm/imgs/braaten_et_al_2015_automated%20cloud_and_cloud_shadow_identification_in_landsat_mss_imagery_for_temperate_ecosystems.pdf">Learn about MSScvm</a>.</p>
 </dd>
-<dt><a href="#applyMsscvm">applyMsscvm(img)</a> ??? <code>ee.Image</code></dt>
+<dt><a href="#applyMsscvm">applyMsscvm(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Applies the MSScvm mask to the input image, i.e., pixels identified as cloud
 or cloud shadow are masked out. <a href="https://jdbcode.github.io/MSScvm/imgs/braaten_et_al_2015_automated%20cloud_and_cloud_shadow_identification_in_landsat_mss_imagery_for_temperate_ecosystems.pdf">Learn about MSScvm</a>.</p>
 </dd>
@@ -238,7 +238,7 @@ Map.addLayer(visImg, null, 'From ee.Image.visualize()');
 ```
 <a name="getWrs1GranuleGeom"></a>
 
-### getWrs1GranuleGeom(granuleId) ??? <code>ee.Dictionary</code>
+### getWrs1GranuleGeom(granuleId) > <code>ee.Dictionary</code>
 Get the geometry for a given WRS-1 granule. Returns a dictionary with three
 elements: 'granule' a `ee.Feature`, granule 'centroid' a `ee.Geometry`, and
 granule 'bounds' `ee.Geometry` with a 40 km buffer. Note that it will only
@@ -268,7 +268,7 @@ Map.addLayer(centroid, {color: 'red'}, 'Centroid);
 ```
 <a name="getCol"></a>
 
-### getCol(params) ??? <code>ee.ImageCollection</code>
+### getCol(params) > <code>ee.ImageCollection</code>
 Assembles a Landsat MSS image collection from USGS Collection 1 T1 and T2
 images acquired by satellites 1-5. Removes L1G images and images without a
 complete set of reflectance bands. Additional default and optional filtering
@@ -347,7 +347,7 @@ viewThumbnails(mssDnCol, {unit: 'toa'});
 ```
 <a name="calcRad"></a>
 
-### calcRad(img) ??? <code>ee.Image</code>
+### calcRad(img) > <code>ee.Image</code>
 Converts DN values to radiance.
 
 **Kind**: global function  
@@ -372,7 +372,7 @@ var mssRadCol = mssDnCol.map(msslib.calcRad);
 ```
 <a name="calcToa"></a>
 
-### calcToa(img) ??? <code>ee.Image</code>
+### calcToa(img) > <code>ee.Image</code>
 Converts DN values to TOA reflectance.
 
 **Kind**: global function  
@@ -397,7 +397,7 @@ var mssToaCol = mssDnCol.map(msslib.calcToa);
 ```
 <a name="addNdvi"></a>
 
-### addNdvi(img) ??? <code>ee.Image</code>
+### addNdvi(img) > <code>ee.Image</code>
 Adds NDVI transformation as a band ('ndvi') to the input image.
 
 **Kind**: global function  
@@ -422,7 +422,7 @@ var mssToaColNdvi = mssToaCol.map(msslib.addNdvi);
 ```
 <a name="addQaMask"></a>
 
-### addQaMask() ??? <code>ee.Image</code>
+### addQaMask() > <code>ee.Image</code>
 Adds the 'BQA' quality band as mask band ('BQA_mask') indicating good (1) and
 bad (0) pixels. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
 
@@ -460,7 +460,7 @@ print(mssDnColQaMask.limit(5));
 ```
 <a name="applyQaMask"></a>
 
-### applyQaMask() ??? <code>ee.Image</code>
+### applyQaMask() > <code>ee.Image</code>
 Applies the 'BQA' quality band to an image as a mask. It masks out cloud
 pixels and those exhibiting radiometric saturation, as well pixels associated
 with missing data. Cloud identification is limited to mostly thick cumulus
@@ -500,7 +500,7 @@ print(mssDnColQaMask.limit(5));
 ```
 <a name="addMsscvm"></a>
 
-### addMsscvm(img) ??? <code>ee.Image</code>
+### addMsscvm(img) > <code>ee.Image</code>
 Adds the MSScvm band ('msscvm') to the input image. Value 0 designates pixels
 as clear, 1 as clouds, and 2 as shadows. [Learn about MSScvm](https://jdbcode.github.io/MSScvm/imgs/braaten_et_al_2015_automated%20cloud_and_cloud_shadow_identification_in_landsat_mss_imagery_for_temperate_ecosystems.pdf).
 
@@ -546,7 +546,7 @@ print(mssToaColMsscvm.limit(5));
 ```
 <a name="applyMsscvm"></a>
 
-### applyMsscvm(img) ??? <code>ee.Image</code>
+### applyMsscvm(img) > <code>ee.Image</code>
 Applies the MSScvm mask to the input image, i.e., pixels identified as cloud
 or cloud shadow are masked out. [Learn about MSScvm](https://jdbcode.github.io/MSScvm/imgs/braaten_et_al_2015_automated%20cloud_and_cloud_shadow_identification_in_landsat_mss_imagery_for_temperate_ecosystems.pdf).
 
