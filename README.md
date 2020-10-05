@@ -83,7 +83,7 @@ mssToaCol = mssToaCol.map(msslib.applyQaMask);
 
 ## Components
 
-### Constants
+#### Constants
 
 <dl>
 <dt><a href="#visDn">visDn</a> : <code>Object</code></dt>
@@ -101,7 +101,7 @@ images.</p>
 </dd>
 </dl>
 
-### Functions
+#### Functions
 
 <dl>
 <dt><a href="#getWrs1GranuleGeom">getWrs1GranuleGeom(granuleId)</a> > <code>ee.Dictionary</code></dt>
@@ -287,12 +287,13 @@ var granuleGeom = msslib.getWrs1GranuleGeom('049030');
 print(granuleGeom);
 
 // Display the results.
-var granule = granuleGeom.get('granule');
-var centroid = granuleGeom.get('centroid');
-var bounds = granuleGeom.get('bounds');
-Map.addLayer(bounds, {color: 'blue'}, 'Bounds);
-Map.addLayer(granule, {color: 'black'}, 'Granule);
-Map.addLayer(centroid, {color: 'red'}, 'Centroid);
+var granule = ee.Feature(granuleGeom.get('granule'));
+var centroid = ee.Geometry(granuleGeom.get('centroid'));
+var bounds = ee.Geometry(granuleGeom.get('bounds'));
+Map.centerObject(centroid, 8);
+Map.addLayer(bounds, {color: 'blue'}, 'Bounds');
+Map.addLayer(granule, {color: 'black'}, 'Granule');
+Map.addLayer(centroid, {color: 'red'}, 'Centroid');
 ```
 <a name="getCol"></a>
 
