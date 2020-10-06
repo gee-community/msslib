@@ -715,7 +715,7 @@ exports.addTc = addTc;
  * Get the 'BQA' quality band as a Boolean layer indicating good (1) and bad (0)
  * pixels. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
  *
- * @img {ee.Image} img MSS image originating from the `msslib.getCol()`
+ * @param {ee.Image} img MSS image originating from the `msslib.getCol()`
  *     function.
  * @return {ee.Image}
  * @ignore
@@ -728,7 +728,7 @@ function getQaMask(img) {
  * Adds the 'BQA' quality band as mask band ('BQA_mask') indicating good (1) and
  * bad (0) pixels. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
  *
- * @img {ee.Image} img MSS image originating from the `msslib.getCol()`
+ * @param {ee.Image} img MSS image originating from the `msslib.getCol()`
  *     function.
  * @return {ee.Image}
  * @example

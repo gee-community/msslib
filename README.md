@@ -134,7 +134,7 @@ function to exclude the given image(s).</p>
 <dt><a href="#addNdvi">addNdvi(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds NDVI transformation as a band (&#39;ndvi&#39;) to the input image.</p>
 </dd>
-<dt><a href="#addQaMask">addQaMask()</a> > <code>ee.Image</code></dt>
+<dt><a href="#addQaMask">addQaMask(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds the &#39;BQA&#39; quality band as mask band (&#39;BQA_mask&#39;) indicating good (1) and
 bad (0) pixels. <a href="https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band">Learn more about the &#39;BQA&#39; band</a>.</p>
 </dd>
@@ -448,13 +448,16 @@ var mssToaColNdvi = mssToaCol.map(msslib.addNdvi);
 ```
 <a name="addQaMask"></a>
 
-### addQaMask() > <code>ee.Image</code>
+### addQaMask(img) > <code>ee.Image</code>
 Adds the 'BQA' quality band as mask band ('BQA_mask') indicating good (1) and
 bad (0) pixels. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
 
 **Kind**: global function  
-**Img**: <code>ee.Image</code> img MSS image originating from the `msslib.getCol()`
-    function.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| img | <code>ee.Image</code> | MSS image originating from the `msslib.getCol()`     function. |
+
 **Example**  
 ```js
 // Get an MSS image collection.
