@@ -316,8 +316,8 @@ designating them as 'WRS-1' or 'WRS-2'.
 | [params.maxRmseVerify] | <code>number</code> | <code>0.5</code> | The maximum geometric RMSE of a     given image allowed in the collection, provided in units of pixels     (60 m), conditioned on the 'GEOMETRIC_RMSE_VERIFY' image property. |
 | [params.maxCloudCover] | <code>number</code> | <code>50</code> | The maximum cloud cover of a given     image allowed in the collection, provided as a percent, conditioned on     the 'CLOUD_COVER' image property. |
 | [params.wrs] | <code>string</code> | <code>&quot;1&amp;2&quot;</code> | An indicator for what World Reference     System types to allow in the collection. MSS images from Landsat     satellites 1-3 use WRS-1, while 4-5 use WRS-2. Options include: '1'     (WRS-1 only), '2' (WRS-2 only), and '1&2' (both WRS-1 and WRS-2). |
-| [params.yearRange] | <code>Array</code> | <code></code> | An array with two integers that define     the range of years to include in the collection. The first defines the     start year (inclusive) and the second defines the end year (inclusive).     Ex: [1972, 1990]. |
-| [params.doyRange] | <code>Array</code> | <code></code> | An array with two integers that define     the range of days to include in the collection. The first defines the     start day of year (inclusive) and the second defines the end day of year     (inclusive). Note that the start day can be less than the end day, which     indicates that the day range crosses the new year. Ex: [180, 240]     (dates for northern hemisphere summer images), [330, 90] (dates for     southern hemisphere summer images). |
+| [params.yearRange] | <code>Array</code> | <code>[1972, 2000]</code> | An array with two integers that define     the range of years to include in the collection. The first defines the     start year (inclusive) and the second defines the end year (inclusive).     Ex: [1972, 1990]. |
+| [params.doyRange] | <code>Array</code> | <code>[1, 365]</code> | An array with two integers that define     the range of days to include in the collection. The first defines the     start day of year (inclusive) and the second defines the end day of year     (inclusive). Note that the start day can be less than the end day, which     indicates that the day range crosses the new year. Ex: [180, 240]     (dates for northern hemisphere summer images), [330, 90] (dates for     southern hemisphere summer images). |
 | [params.excludeIds] | <code>Array</code> | <code></code> | A list of image IDs to filter out of     the image collection, given  as the value of the image's     'LANDSAT_SCENE_ID' property. |
 
 **Example**  
@@ -357,7 +357,7 @@ function to exclude the given image(s).
 | col | <code>ee.ImageCollection</code> |  | MSS DN image collection originating from the     `msslib.getCol()` function. |
 | params | <code>Object</code> |  | An object that provides visualization parameters. |
 | [params.unit] | <code>string</code> | <code>&quot;toa&quot;</code> | An indicator for what units to use in the     display image. Use: 'dn' (raw digital number), 'rad' (radiance), or     'toa' (TOA reflectance). The selected unit will be calculated on-the-fly. |
-| [params.display] | <code>string</code> | <code>&quot;&#x27;nir|red|green&#x27;&quot;</code> | An indicator for how to     display the image thumbnail. Use 'nir|red|green' (RGB), 'ndvi'     (grayscale). Default visualization parameters for color stretch are     applied. |
+| [params.display] | <code>string</code> | <code>&quot;nir\\|red\\|green&quot;</code> | An indicator for how to     display the image thumbnail. Use 'nir\|red\|green' (RGB) or 'ndvi'     (grayscale). Default visualization parameters for color stretch are     applied. |
 | [params.visParams] | <code>Object</code> | <code></code> | A custom visualization parameter     dictionary as described [here](https://developers.google.com/earth-engine/image_visualization#mapVisParamTable).     If set, overrides the `params.display` option and default. |
 
 **Example**  
@@ -370,9 +370,6 @@ var mssDnCol = msslib.getCol({
 
 // View DN image thumbnails in the console.
 viewThumbnails(mssDnCol, {unit: 'dn'});
-
-// View TOA image thumbnails in the console.
-viewThumbnails(mssDnCol, {unit: 'toa'});
 ```
 <a name="calcRad"></a>
 
@@ -484,7 +481,7 @@ Map.addLayer(mssDnImgQaMask, {
 }, 'BQA mask');
 
 // Add BQA mask band to all images in collection.
-var mssDnColQaMask = mssDnCol(msslib.addQaMask);
+var mssDnColQaMask = mssDnCol.map(msslib.addQaMask);
 print(mssDnColQaMask.limit(5));
 ```
 <a name="applyQaMask"></a>
@@ -524,7 +521,7 @@ Map.addLayer(mssDnImg, msslib.visDn, 'DN image');
 Map.addLayer(mssDnImgQaMask, msslib.visDn, 'DN image masked');
 
 // Apply BQA mask to all images in collection.
-var mssDnColQaMask = mssDnCol(msslib.applyQaMask);
+var mssDnColQaMask = mssDnCol.map(msslib.applyQaMask);
 print(mssDnColQaMask.limit(5));
 ```
 <a name="addMsscvm"></a>
@@ -570,7 +567,7 @@ Map.addLayer(mssToaImgMsscvm, {
 }, 'MSScmv');
 
 // Add MSScvm band to all images in collection.
-var mssToaColMsscvm = mssToaCol(msslib.addMsscvm);
+var mssToaColMsscvm = mssToaCol.map(msslib.addMsscvm);
 print(mssToaColMsscvm.limit(5));
 ```
 <a name="applyMsscvm"></a>
@@ -593,6 +590,7 @@ var mssDnCol = msslib.getCol({
         doyRange: [170, 240],
         yearRange: [1983, 1986],
         wrs: '2'
+    });
 
 // Convert DN to TOA.
 var mssToaCol = mssDnCol.map(msslib.calcToa);
