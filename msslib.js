@@ -774,7 +774,7 @@ exports.addQaMask = addQaMask;
  * single band, which when visualized, can appear as tinted red, green, or
  * blue. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
  *
- * @img {ee.Image} img MSS image originating from the `msslib.getCol()`
+ * @param {ee.Image} img MSS image originating from the `msslib.getCol()`
  *     function.
  * @return {ee.Image}
  * @example

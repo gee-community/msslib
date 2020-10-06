@@ -138,7 +138,7 @@ function to exclude the given image(s).</p>
 <dd><p>Adds the &#39;BQA&#39; quality band as mask band (&#39;BQA_mask&#39;) indicating good (1) and
 bad (0) pixels. <a href="https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band">Learn more about the &#39;BQA&#39; band</a>.</p>
 </dd>
-<dt><a href="#applyQaMask">applyQaMask()</a> > <code>ee.Image</code></dt>
+<dt><a href="#applyQaMask">applyQaMask(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Applies the &#39;BQA&#39; quality band to an image as a mask. It masks out cloud
 pixels and those exhibiting radiometric saturation, as well pixels associated
 with missing data. Cloud identification is limited to mostly thick cumulus
@@ -489,7 +489,7 @@ print(mssDnColQaMask.limit(5));
 ```
 <a name="applyQaMask"></a>
 
-### applyQaMask() > <code>ee.Image</code>
+### applyQaMask(img) > <code>ee.Image</code>
 Applies the 'BQA' quality band to an image as a mask. It masks out cloud
 pixels and those exhibiting radiometric saturation, as well pixels associated
 with missing data. Cloud identification is limited to mostly thick cumulus
@@ -500,8 +500,11 @@ single band, which when visualized, can appear as tinted red, green, or
 blue. [Learn more about the 'BQA' band](https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band).
 
 **Kind**: global function  
-**Img**: <code>ee.Image</code> img MSS image originating from the `msslib.getCol()`
-    function.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| img | <code>ee.Image</code> | MSS image originating from the `msslib.getCol()`     function. |
+
 **Example**  
 ```js
 // Get an MSS image collection.
