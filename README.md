@@ -3,7 +3,10 @@
 The aim of `msslib` is to make it easy to work with Landsat MSS data in Earth
 Engine. It assembles image collections across the five satellites that carried
 the MSS sensor, filters images for quality, calculates TOA reflectance, and
-calculates the MSScvm cloud mask.
+calculates the [MSScvm](https://jdbcode.github.io/MSScvm/imgs/braaten_et_al_2015_automated%20cloud_and_cloud_shadow_identification_in_landsat_mss_imagery_for_temperate_ecosystems.pdf)
+cloud mask.
+
+![](/docs/msscvm_demo_01.png)
 
 ## Guide
 
