@@ -19,7 +19,7 @@
 // ### VERSION ###
 // #############################################################################
 
-exports.version = '0.1.0';
+exports.version = '0.1.1';
 
 // #############################################################################
 // ### CONSTANTS ###
@@ -885,6 +885,7 @@ function getDem(img) {
       .mosaic()
       .reproject(img.projection());
 }
+exports.getDem = getDem;
 
 /**
  * Converts degrees to radians.
@@ -967,8 +968,9 @@ function topoCorrB4(img, dem) {
                              ee.Number(img.get('SUN_ELEVATION')))))
                      .cos();
   var correction = (cosTheta.divide(ill)).pow(kImg);
-  return img.select('nir').multiply(correction).round().toShort();
+  return img.select('nir').multiply(correction);
 }
+exports.topoCorrB4 = topoCorrB4;
 
 /**
  * Returns MSScvm shadow layer.
@@ -985,7 +987,7 @@ function shadowLayer(img, dem, clouds) {
   var b4c = topoCorrB4(img, dem);
 
   // Threshold B4 - target dark pixels.
-  var shadows = b4c.lt(0.11);  // 1100
+  var shadows = b4c.lt(0.11);  // Make this true for all pixels to use full cloud projection. 
 
   // Project clouds as potential shadow.
   var shadow_azimuth =
@@ -1037,9 +1039,9 @@ function shadowLayer(img, dem, clouds) {
  * Map.addLayer(mssToaImgMsscvm, msslib.visToa, 'TOA image');
  * Map.addLayer(mssToaImgMsscvm, {
  *     bands: ['msscvm'],
- *     min: 1,
- *     max: 3,
- *     palette: ['green', 'white', 'black']
+ *     min: 0,
+ *     max: 2,
+ *     palette: ['27ae60', 'FFFFFF', '000000']
  * }, 'MSScmv');
  * 
  * // Add MSScvm band to all images in collection.
@@ -1050,8 +1052,8 @@ function addMsscvm(img) {
   var dem = getDem(img);
   var water = waterLayer(img);
   var b4c = topoCorrB4(img, dem);
-  var clouds = cloudLayer(img).selfMask().add(1);
-  var shadows = shadowLayer(img, dem, clouds).selfMask().add(2);
+  var clouds = cloudLayer(img).selfMask();
+  var shadows = shadowLayer(img, dem, clouds).selfMask().add(1);
   return img.addBands(shadows.blend(clouds).unmask(0).rename('msscvm'));
 }
 exports.addMsscvm = addMsscvm;
