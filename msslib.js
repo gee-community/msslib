@@ -19,7 +19,7 @@
 // ### VERSION ###
 // #############################################################################
 
-exports.version = '0.1.1';
+exports.version = '0.1.2';
 
 // #############################################################################
 // ### CONSTANTS ###
@@ -671,8 +671,8 @@ exports.addNdvi = addNdvi;
 // capitalized?
 
 /**
- * Adds Tasseled Cap indices brightness ('tcb'), greenness ('tcg'), and
- * angle ('tca') to the input image. See [Kauth and Thomas, 1976](https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1160&context=lars_symp)
+ * Adds Tasseled Cap indices brightness ('tcb'), greenness ('tcg'), yellowness
+ * ('tcy'), and angle ('tca') to the input image. See [Kauth and Thomas, 1976](https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1160&context=lars_symp)
  * 
  * @param {ee.Image} img MSS image originating from the `msslib.getCol()`
  *     function. It is recommended that the image be in units of radiance or
@@ -696,10 +696,12 @@ function addTc(img) {
   var bands = img.select([0, 1, 2, 3]);
   var tcbCoeffs = ee.Image.constant([0.433, 0.632, 0.586, 0.264]);
   var tcgCoeffs = ee.Image.constant([-0.290, -0.562, 0.600, 0.491]);
+  var tcyCoeffs = ee.Image.constant([-0.829, 0.522, -0.039, 0.194]);
   var tcb = bands.multiply(tcbCoeffs).reduce(ee.Reducer.sum()).toFloat();
   var tcg = bands.multiply(tcgCoeffs).reduce(ee.Reducer.sum()).toFloat();
+  var tcy = bands.multiply(tcyCoeffs).reduce(ee.Reducer.sum()).toFloat();
   var tca = (tcg.divide(tcb)).atan().multiply(180 / Math.PI).toFloat();
-  var tc = ee.Image.cat(tcb, tcg, tca).rename('tcb', 'tcg', 'tca');
+  var tc = ee.Image.cat(tcb, tcg, tcy, tca).rename('tcb', 'tcg', 'tcy', 'tca');
   return ee.Image(img.addBands(tc).copyProperties(img, img.propertyNames()));
 }
 exports.addTc = addTc;
