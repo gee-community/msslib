@@ -570,9 +570,9 @@ Map.centerObject(mssToaImgMsscvm, 9);
 Map.addLayer(mssToaImgMsscvm, msslib.visToa, 'TOA image');
 Map.addLayer(mssToaImgMsscvm, {
     bands: ['msscvm'],
-    min: 1,
-    max: 3,
-    palette: ['green', 'white', 'black']
+    min: 0,
+    max: 2,
+    palette: ['27ae60', 'FFFFFF', '000000']
 }, 'MSScmv');
 
 // Add MSScvm band to all images in collection.
