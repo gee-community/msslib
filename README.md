@@ -137,6 +137,10 @@ function to exclude the given image(s).</p>
 <dt><a href="#addNdvi">addNdvi(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds NDVI transformation as a band (&#39;ndvi&#39;) to the input image.</p>
 </dd>
+<dt><a href="#addTc">addTc(img)</a> > <code>ee.Image</code></dt>
+<dd><p>Adds Tasseled Cap indices brightness (&#39;tcb&#39;), greenness (&#39;tcg&#39;), yellowness
+(&#39;tcy&#39;), and angle (&#39;tca&#39;) to the input image. See <a href="https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1160&amp;context=lars_symp">Kauth and Thomas, 1976</a></p>
+</dd>
 <dt><a href="#addQaMask">addQaMask(img)</a> > <code>ee.Image</code></dt>
 <dd><p>Adds the &#39;BQA&#39; quality band as mask band (&#39;BQA_mask&#39;) indicating good (1) and
 bad (0) pixels. <a href="https://www.usgs.gov/land-resources/nli/landsat/landsat-collection-1-level-1-quality-assessment-band">Learn more about the &#39;BQA&#39; band</a>.</p>
@@ -448,6 +452,32 @@ var mssToaCol = mssDnCol.map(msslib.calcToa);
 
 // Add NDVI band to each image in a collection.
 var mssToaColNdvi = mssToaCol.map(msslib.addNdvi);
+```
+<a name="addTc"></a>
+
+### addTc(img) > <code>ee.Image</code>
+Adds Tasseled Cap indices brightness ('tcb'), greenness ('tcg'), yellowness
+('tcy'), and angle ('tca') to the input image. See [Kauth and Thomas, 1976](https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1160&context=lars_symp)
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| img | <code>ee.Image</code> | MSS image originating from the `msslib.getCol()`     function. It is recommended that the image be in units of radiance or     TOA reflectance (see `msslib.calcRad()` and `msslib.calcToa()`). |
+
+**Example**  
+```js
+// Get an MSS image collection.
+var mssDnCol = msslib.getCol({
+  aoi: ee.Geometry.Point([-122.239, 44.018]),
+  doyRange: [170, 240] 
+});
+
+// Convert DN to TOA for all images in a collection.
+var mssToaCol = mssDnCol.map(msslib.calcToa);
+
+// Add Tasseled Cap bands to each image in a collection.
+var mssToaColTc = mssToaCol.map(msslib.addTc);
 ```
 <a name="addQaMask"></a>
 
