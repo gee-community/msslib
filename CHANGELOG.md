@@ -1,3 +1,7 @@
+#### 0.1.2
+
+- Added tasseled cap yellowness index as an output band of the `addTc` function.
+
 #### 0.1.1
 
 - Fixed issue with MSScvm cloud shadow identification. Topographic correction of
