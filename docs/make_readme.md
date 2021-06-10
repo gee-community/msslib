@@ -1,4 +1,4 @@
-# Inital Node.js jsdoc-to-markdown setup for project
+# Node.js jsdoc-to-markdown setup for project
 
 1. Make sure Node.js is [installed](https://nodejs.org/en/download/).
 
