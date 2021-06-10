@@ -12,7 +12,7 @@
 npm install --save-dev jsdoc-to-markdown
 ```
 
-# Generage README.md from guide.md and module JSDoc markup.
+# Generate README.md from guide.md and module JSDoc markup.
 
 1. Copy and paste the .js code w/ JSDoc markup to a module.js file.
 
